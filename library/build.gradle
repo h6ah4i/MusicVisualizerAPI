@@ -1,0 +1,114 @@
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+    id 'signing'
+}
+
+ext {
+    libraryVersionName = '1.0.0'
+}
+
+android {
+    compileSdkVersion 32
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 32
+
+        buildConfigField 'String', 'TARGET_APP_PACKAGE_NAME', "\"${MUSIC_VISUALIZER_API_TARGET_APP_PACKAGE_NAME}\""
+        buildConfigField 'String', 'API_CLIENT_LIBRARY_VERSION', "\"${libraryVersionName}\""
+        manifestPlaceholders = [
+                apiTargetAppPackageName: MUSIC_VISUALIZER_API_TARGET_APP_PACKAGE_NAME,
+                builtInPlayerPermissionPrefix: MUSIC_VISUALIZER_API_TARGET_BUILTIN_PLAYER_PERMISSION_PREFIX,
+        ]
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+        singleVariant('debug')
+    }
+}
+
+dependencies {
+    compileOnly "androidx.annotation:annotation:1.3.0"
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.h6ah4i.android.musicvisualizerapi'
+                artifactId = 'musicvisualizerapi'
+                version = libraryVersionName
+
+                pom {
+                    name = 'Music Visualizer API'
+                    description = 'Official API for the Music Visualizer Android app.'
+                    url = 'https://github.com/h6ah4i/MusicVisualizerAPI'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'h6ah4i'
+                            name = 'Haruki Hasegawa'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:https://github.com/h6ah4i/MusicVisualizerAPI.git'
+                        developerConnection = 'scm:git:https://github.com/h6ah4i/MusicVisualizerAPI.git'
+                        url = 'https://github.com/h6ah4i/MusicVisualizerAPI'
+                    }
+                }
+            }
+
+            debug(MavenPublication) {
+                from components.debug
+
+                groupId = 'com.h6ah4i.android.musicvisualizerapi'
+                artifactId = 'library-debug'
+                version = libraryVersionName
+            }
+        }
+
+        repositories {
+            maven {
+                name = "BuildDir"
+                url = rootProject.layout.projectDirectory.dir('repo')
+            }
+
+            maven {
+                name = 'MavenCentral'
+
+                def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+                def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+                url = libraryVersionName.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+                credentials {
+                    if (hasProperty('mavenCentralUsername') && hasProperty("mavenCentralPassword")) {
+                        username = "$mavenCentralUsername"
+                        password = "$mavenCentralPassword"
+                    }
+                }
+            }
+        }
+    }
+
+    signing {
+        useGpgCmd()
+        sign publishing.publications.release
+    }
+}
