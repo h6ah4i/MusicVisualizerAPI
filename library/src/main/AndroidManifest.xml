@@ -1,5 +1,4 @@
-<manifest package="com.h6ah4i.android.musicvisualizerapi"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="${builtInPlayerPermissionPrefix}.CONTROLS_BUILTIN_PLAYER" />
     <queries>
         <package android:name="${apiTargetAppPackageName}" />

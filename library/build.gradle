@@ -9,11 +9,13 @@ ext {
 }
 
 android {
-    compileSdkVersion 32
+    namespace = "com.h6ah4i.android.musicvisualizerapi"
+
+    compileSdk 32
 
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 32
+        minSdk 23
+        targetSdk 32
 
         buildConfigField 'String', 'TARGET_APP_PACKAGE_NAME', "\"${MUSIC_VISUALIZER_API_TARGET_APP_PACKAGE_NAME}\""
         buildConfigField 'String', 'API_CLIENT_LIBRARY_VERSION', "\"${libraryVersionName}\""
@@ -21,6 +23,10 @@ android {
                 apiTargetAppPackageName: MUSIC_VISUALIZER_API_TARGET_APP_PACKAGE_NAME,
                 builtInPlayerPermissionPrefix: MUSIC_VISUALIZER_API_TARGET_BUILTIN_PLAYER_PERMISSION_PREFIX,
         ]
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 
     compileOptions {
