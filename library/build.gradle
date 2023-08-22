@@ -11,11 +11,11 @@ ext {
 android {
     namespace = "com.h6ah4i.android.musicvisualizerapi"
 
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 23
-        targetSdk 32
+        targetSdk 33
 
         buildConfigField 'String', 'TARGET_APP_PACKAGE_NAME', "\"${MUSIC_VISUALIZER_API_TARGET_APP_PACKAGE_NAME}\""
         buildConfigField 'String', 'API_CLIENT_LIBRARY_VERSION', "\"${libraryVersionName}\""
