@@ -1,7 +1,7 @@
 Music Visualizer API
 ===
 
-This project is the official API that exposes some basic operation for [Music Visualizer](https://play.google.com/store/apps/details?id=com.h6ah4i.android.music_visualizer2) app.
+This project is the official API that exposes some basic operations for the [Music Visualizer](https://play.google.com/store/apps/details?id=com.h6ah4i.android.music_visualizer2) Android app.
 
 
 License
