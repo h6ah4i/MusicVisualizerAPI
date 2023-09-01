@@ -1,6 +1,8 @@
 Music Visualizer API
 ===
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.h6ah4i.android.musicvisualizerapi/musicvisualizerapi/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.h6ah4i.android.musicvisualizerapi/musicvisualizerapi)
+
 This project is the official API that exposes some basic operations for the [Music Visualizer](https://play.google.com/store/apps/details?id=com.h6ah4i.android.music_visualizer2) Android app.
 
 
